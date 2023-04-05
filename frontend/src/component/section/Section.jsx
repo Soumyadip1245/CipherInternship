@@ -11,13 +11,13 @@ const Section = () => {
                         {/* <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" alt="" /> */}
                         <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" alt="" />
                         <div className="text-field">
-                            <h4>Hello, </h4>
-                            <h2>Soumyadip Das </h2>
+                            <h5>Hello, </h5>
+                            <h4>Soumyadip Das </h4>
                             <h6>soumyadip20csu214@gmail.com</h6>
                         </div>
                     </div>
                     <div className="right-flex">
-                        <a href='#'><h4>0 Followers</h4></a>
+                        <a href='#'><h5>0 Followers</h5></a>
                     </div>
                 </div>
             </section>
