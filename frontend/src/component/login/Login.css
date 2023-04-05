@@ -89,3 +89,10 @@
 .input-bottom a {
     cursor: pointer;
 }
+
+@media (max-width: 700px) {
+    .form {
+        max-width: 88%;
+        padding: 20px;
+    }
+}
