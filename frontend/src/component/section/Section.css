@@ -190,4 +190,38 @@ button.btn.btn-secondary {
     padding: 0.5rem 1rem;
 }
 
-@media (max-width: 700px) {}
+@media (max-width: 700px) {
+
+    * {
+        font-size: 50%;
+    }
+
+    .main-flex {
+        height: 78px;
+    }
+
+    .text-about button {
+        font-size: 10px;
+    }
+
+    .textarea-about {
+        height: 80px;
+    }
+
+    span {
+        font-size: 10px;
+    }
+
+    .container-link {
+        grid-template-columns: 1fr;
+        gap: 0rem;
+    }
+
+    .title-link-icon i {
+        font-size: 10px;
+    }
+
+    .container-flex {
+        flex-flow: column;
+    }
+}
