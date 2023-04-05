@@ -13,10 +13,14 @@
 }
 
 
-*/ .main-flex h5,
+.main-flex h5,
 h6 {
     font-size: 80%;
 }
+
+section {}
+
+
 
 
 .left-flex {
