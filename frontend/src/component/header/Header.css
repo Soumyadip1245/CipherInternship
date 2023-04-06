@@ -5,6 +5,10 @@
     padding: 7px;
 }
 
+a {
+    cursor: pointer;
+}
+
 .leftside {
     display: flex;
     align-items: center;

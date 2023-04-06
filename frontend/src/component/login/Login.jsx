@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import './Login.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Login = ({ onLogin }) => {
     const [showRegisterForm, setShowRegisterForm] = useState(false);
     const [rname, setRname] = useState("")
@@ -22,10 +24,28 @@ const Login = ({ onLogin }) => {
             setRemail("")
             setRname("")
             setRpassword("")
-            console.log(res.data.message)
+            toast.success(res.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
-            console.log(res.data.message)
+            toast.error(res.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     }
     const register = () => {
@@ -43,8 +63,28 @@ const Login = ({ onLogin }) => {
             setRpassword("")
             localStorage.setItem("token", res.data.token)
             onLogin()
+            toast.success(res.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
         else {
+            toast.error(res.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
             setRemail("")
             setRpassword("")
         }
@@ -54,89 +94,111 @@ const Login = ({ onLogin }) => {
     }
     if (showRegisterForm) {
         return (
-            <div className="form">
-                <div className="logo-container">
-                    <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" alt="Your Logo" />
-                    <h2>CipherSchools</h2>
-                </div>
-                <div className="input-row">
-                    <input
-                        type="text"
-                        className="input-box"
-                        placeholder="Username"
-                        value={rname}
-                        onChange={(e) => setRname(e.target.value)}
-                    />
-                </div>
-                <div className="input-row">
-                    <input
-                        type="text"
-                        className="input-box"
-                        placeholder="Phone Number"
-                        value={rphone}
-                        onChange={(e) => setRPhone(e.target.value)}
-                    />
-                </div>
-                <div className="input-row">
-                    <input
-                        type="email"
-                        className="input-box"
-                        placeholder="Email ID"
-                        value={remail}
-                        onChange={(e) => setRemail(e.target.value)}
-                    />
-                </div>
-                <div className="input-row">
-                    <input
-                        type="password"
-                        className="input-box"
-                        placeholder="Password"
-                        value={rpassword}
-                        onChange={(e) => setRpassword(e.target.value)}
-                    />
-                </div>
-                <button class="login-btnn" onClick={registerform}><span>Register</span></button>
-                <div className="input-bottom">
-                    <div className="input-account">Done with Sign in ?</div>
-                    <a onClick={login}>  <span>Login</span></a>
-                </div>
+            <>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+                {/* Same as */}
+                <ToastContainer />
+                <div className="form">
 
-            </div>
+                    <div className="logo-container">
+                        <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" alt="Your Logo" />
+                        <h2>CipherSchools</h2>
+                    </div>
+                    <div className="input-row">
+                        <input
+                            type="text"
+                            className="input-box"
+                            placeholder="Username"
+                            value={rname}
+                            onChange={(e) => setRname(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-row">
+                        <input
+                            type="text"
+                            className="input-box"
+                            placeholder="Phone Number"
+                            value={rphone}
+                            onChange={(e) => setRPhone(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-row">
+                        <input
+                            type="email"
+                            className="input-box"
+                            placeholder="Email ID"
+                            value={remail}
+                            onChange={(e) => setRemail(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-row">
+                        <input
+                            type="password"
+                            className="input-box"
+                            placeholder="Password"
+                            value={rpassword}
+                            onChange={(e) => setRpassword(e.target.value)}
+                        />
+                    </div>
+                    <button class="login-btnn" onClick={registerform}><span>Register</span></button>
+                    <div className="input-bottom">
+                        <div className="input-account">Done with Sign in ?</div>
+                        <a onClick={login}>  <span>Login</span></a>
+                    </div>
+
+                </div>
+            </>
+
 
         )
     }
     else {
         return (
-            <div className="form">
-                <div className="logo-container">
-                    <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" alt="Your Logo" />
-                    <h2>CipherSchools</h2>
-                </div>
-                <div className="input-row">
-                    <input
-                        type="email"
-                        className="input-box"
-                        placeholder="Email ID"
-                        value={remail}
-                        onChange={(e) => setRemail(e.target.value)}
-                    />
-                </div>
-                <div className="input-row">
-                    <input
-                        type="password"
-                        className="input-box"
-                        placeholder="Enter Password"
-                        value={rpassword}
-                        onChange={(e) => setRpassword(e.target.value)}
-                    />
-                </div>
-                <button class="login-btnn" onClick={loginform} ><span>Signin</span></button>
-                <div className="input-bottom">
-                    <div className="input-account">Don't have an account ?</div>
-                    <a onClick={register}>  <span>Get Started</span></a>
-                </div>
+            <>
+                <ToastContainer />
+                <div className="form">
+                    <div className="logo-container">
+                        <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" alt="Your Logo" />
+                        <h2>CipherSchools</h2>
+                    </div>
+                    <div className="input-row">
+                        <input
+                            type="email"
+                            className="input-box"
+                            placeholder="Email ID"
+                            value={remail}
+                            onChange={(e) => setRemail(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-row">
+                        <input
+                            type="password"
+                            className="input-box"
+                            placeholder="Enter Password"
+                            value={rpassword}
+                            onChange={(e) => setRpassword(e.target.value)}
+                        />
+                    </div>
+                    <button class="login-btnn" onClick={loginform} ><span>Signin</span></button>
+                    <div className="input-bottom">
+                        <div className="input-account">Don't have an account ?</div>
+                        <a onClick={register}>  <span>Get Started</span></a>
+                    </div>
 
-            </div>
+                </div>
+            </>
+
 
         )
     }

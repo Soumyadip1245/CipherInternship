@@ -1,6 +1,9 @@
 import React from 'react'
 import './Header.css'
 export const Header = () => {
+    const logout = () => {
+        localStorage.clear()
+    }
     return (
         <>
             <header>
@@ -13,7 +16,7 @@ export const Header = () => {
                         </div>
                     </div>
                     <div class="rightside">
-                        <i class="fa-solid fa-toggle-on"></i>
+                        <a onClick={logout}><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
                         <p>Browse</p>
                         <i class="fas fa-caret-down"></i>
                         <i class="far fa-bell"></i>
