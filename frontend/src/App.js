@@ -4,10 +4,12 @@ import Section from './component/section/Section'
 import Login from './component/login/Login'
 import './App.css'
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
+
   return (
     <>
       <Header />

@@ -1,9 +1,33 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import './Login.css'
 const Login = () => {
     const [showRegisterForm, setShowRegisterForm] = useState(false);
+    const [rname, setRname] = useState("")
+    const [remail, setRemail] = useState("")
+    const [rphone, setRPhone] = useState("")
+    const [rpassword, setRpassword] = useState("")
+    const register = async () => {
+        var obj = {
 
-    const register = () => {
+            "name": rname,
+            "email": remail,
+            "phone": rphone,
+            "password": rpassword
+
+        }
+        let res = await axios.post("http://localhost:8080/auth/register", obj)
+        if (res.data.success) {
+            setRPhone("")
+            setRemail("")
+            setRname("")
+            setRpassword("")
+            // localStorage.setItem("token",res.data.token)
+            console.log(res.data.message)
+        }
+        else {
+            console.log(res.data.message)
+        }
         setShowRegisterForm(true);
     };
     const login = () => {
@@ -18,19 +42,41 @@ const Login = () => {
                 </div>
                 <div className="input-row">
                     <input
+                        type="text"
+                        className="input-box"
+                        placeholder="Username"
+                        value={rname}
+                        onChange={(e) => setRname(e.target.value)}
+                    />
+                </div>
+                <div className="input-row">
+                    <input
+                        type="text"
+                        className="input-box"
+                        placeholder="Phone Number"
+                        value={rphone}
+                        onChange={(e) => setRPhone(e.target.value)}
+                    />
+                </div>
+                <div className="input-row">
+                    <input
                         type="email"
                         className="input-box"
                         placeholder="Email ID"
+                        value={remail}
+                        onChange={(e) => setRemail(e.target.value)}
                     />
                 </div>
                 <div className="input-row">
                     <input
                         type="password"
                         className="input-box"
-                        placeholder="Enter Password"
+                        placeholder="Password"
+                        value={rpassword}
+                        onChange={(e) => setRpassword(e.target.value)}
                     />
                 </div>
-                <button class="login-btnn" ><span>Register</span></button>
+                <button class="login-btnn" onClick={register}><span>Register</span></button>
                 <div className="input-bottom">
                     <div className="input-account">Done with Sign in ?</div>
                     <a onClick={login}>  <span>Login</span></a>
