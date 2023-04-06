@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import './Login.css'
-const Login = () => {
+const Login = ({ onLogin }) => {
     const [showRegisterForm, setShowRegisterForm] = useState(false);
     const [rname, setRname] = useState("")
     const [remail, setRemail] = useState("")
@@ -42,10 +42,11 @@ const Login = () => {
             setRemail("")
             setRpassword("")
             localStorage.setItem("token", res.data.token)
-            console.log(res.data.message)
+            onLogin()
         }
         else {
-            console.log(res.data.message)
+            setRemail("")
+            setRpassword("")
         }
     }
     const login = () => {
