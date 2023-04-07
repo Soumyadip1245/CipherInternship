@@ -32,8 +32,6 @@ router.post('/login', (req, res) => {
         else {
             const user = value[0]
             bcrypt.compare(req.body.password, user.password, (err, value) => {
-                console.log(err)
-                console.log(value)
                 if (value) {
                     const payload = {
                         userId: user._id,
@@ -82,7 +80,6 @@ router.put('/pedit/:id', (req, res) => {
         var ob = {
             "password": hash
         }
-        console.log("Pedit: " + ob.password)
         User.findByIdAndUpdate(req.params.id, { $set: ob }).then(() => {
             res.json({ success: true, message: "Password Changed" })
         }).catch(() => {
