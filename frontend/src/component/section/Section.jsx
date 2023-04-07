@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const Section = ({ token, isLoggedIn }) => {
     const [name, setName] = useState('');
     const [id, setId] = useState("");
-    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [about, setAbout] = useState('');
@@ -27,27 +26,29 @@ const Section = ({ token, isLoggedIn }) => {
         if (res.data.success) {
             console.log(res.data.data)
             setName(res.data.data.name)
-            setPassword(res.data.data.phone)
+            setPassword(res.data.data.password)
             setEmail(res.data.data.email)
             setAbout(res.data.data.about)
             setLinkedin(res.data.data.linkedin)
             setGithub(res.data.data.github)
             setFacebook(res.data.data.facebook)
             setInstagram(res.data.data.instagram)
+            setHighested(res.data.data.highested)
+            setCurrently(res.data.data.currently)
         }
     };
 
     const editProfile = async () => {
         var obj = {
             name: name,
-            phone: phone,
-            password: password,
             email: email,
             about: about,
             linkedin: linkedin,
             github: github,
             instagram: instagram,
             facebook: facebook,
+            currently: currently,
+            highested: highested
         };
         let res = await axios.put(`http://localhost:8080/auth/edit/${id}`, obj)
         if (res.data.success) {
@@ -75,11 +76,30 @@ const Section = ({ token, isLoggedIn }) => {
             });
         }
     };
+    const passwordProfile = async () => {
+        var ob = {
+            "password": password
+        }
+        let res = await axios.put(`http://localhost:8080/auth/pedit/${id}`, ob)
+        if (res.data.success) {
+            toast.success(res.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+
+    }
     useEffect(() => {
         if (isLoggedIn && token) {
             getUserProfile();
         }
-    }, [isLoggedIn, token], getUserProfile);
+    }, [isLoggedIn, token]);
     return (
         <>
 
@@ -104,7 +124,7 @@ const Section = ({ token, isLoggedIn }) => {
                 {/* About Section */}
                 <div className="text-about">
                     <h5>ABOUT ME</h5>
-                    <button onClick={editProfile}>Edit</button>
+                    <button onClick={editProfile}>Add/Edit</button>
                 </div>
                 <div className="textarea-about">
                     <textarea class="textarea-text" value={about} onChange={(e) => setAbout(e.target.value)} placeholder="Add something about you." rows="4" disabled=""></textarea>
@@ -137,7 +157,7 @@ const Section = ({ token, isLoggedIn }) => {
                 {/* Links Section */}
                 <div className="text-about">
                     <h5>On Web</h5>
-                    <button onClick={editProfile}>Change</button>
+                    <button onClick={editProfile}>Add/Change</button>
                 </div>
                 <div className="container-link">
                     <div className="left-links">
@@ -206,26 +226,26 @@ const Section = ({ token, isLoggedIn }) => {
                 {/* Password */}
                 <div className="text-about">
                     <h5>Professional Information</h5>
-                    <button onClick={editProfile}>Change</button>
+                    <button onClick={editProfile}>Change/Add</button>
                 </div>
                 <div className="container-flex">
                     <div class="title-link">
                         <div class="title-title">Highest Education</div>
                         <div class="title-input-link">
-                            <select class="title-link-text">
-                                <option value="" selected disabled>Graduation</option>
-                                <option value="option1">Graduate</option>
-                                <option value="option2">Post - Graduate</option>
+                            <select onChange={(e) => setHighested(e.target.value)} class="title-link-text">
+                                <option selected disabled>{highested === "" ? "Select" : highested}</option>
+                                <option value="Graduate">Graduate</option>
+                                <option value="Post - Graduate">Post - Graduate</option>
                             </select>
                         </div>
                     </div>
                     <div class="title-link">
                         <div class="title-title">What you do currently?</div>
                         <div class="title-input-link">
-                            <select class="title-link-text">
-                                <option value="" selected disabled>Select</option>
-                                <option value="option1">Student</option>
-                                <option value="option2">College</option>
+                            <select onChange={(e) => setCurrently(e.target.value)} class="title-link-text">
+                                <option selected disabled>{currently === "" ? "Select" : currently}</option>
+                                <option value="Student">Student</option>
+                                <option value="College">College</option>
                             </select>
                         </div>
                     </div>
@@ -234,7 +254,7 @@ const Section = ({ token, isLoggedIn }) => {
                 {/* Password Section */}
                 <div className="text-about">
                     <h5>Password & Security</h5>
-                    <button onClick={editProfile}>Change</button>
+                    <button onClick={passwordProfile}>Change</button>
                 </div>
                 <div className="title-link">
                     <div className="title-title">Password</div>
