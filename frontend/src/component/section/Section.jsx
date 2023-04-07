@@ -4,23 +4,25 @@ import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import ReactCalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Section = ({ token, isLoggedIn }) => {
-    const [profileOb, setData] = useState({});
-    const [name, setName] = useState(profileOb.name || '');
-    const [phone, setPhone] = useState(profileOb.phone || '');
-    const [password, setPassword] = useState(profileOb.password || '');
-    const [email, setEmail] = useState(profileOb.email || '');
-    const [about, setAbout] = useState(profileOb.about || '');
-    const [linkedin, setLinkedin] = useState(profileOb.linkedin || '');
-    const [github, setGithub] = useState(profileOb.github || '');
-    const [instagram, setInstagram] = useState(profileOb.instagram || '');
-    const [facebook, setFacebook] = useState(profileOb.facebook || '');
-    const [highested, setHighested] = useState(profileOb.highested || '');
-    const [currently, setCurrently] = useState(profileOb.currently || '');
+    const [name, setName] = useState('');
+    const [id, setId] = useState("");
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [about, setAbout] = useState('');
+    const [linkedin, setLinkedin] = useState('');
+    const [github, setGithub] = useState('');
+    const [instagram, setInstagram] = useState('');
+    const [facebook, setFacebook] = useState('');
+    const [highested, setHighested] = useState('');
+    const [currently, setCurrently] = useState('');
     const getUserProfile = async () => {
         console.log('Fetching user profile...');
         const decode = jwt_decode(token);
-        console.log(decode.userId);
+        setId(decode.userId)
         let res = await axios.post('http://localhost:8080/auth/profile/' + decode.userId);
         if (res.data.success) {
             console.log(res.data.data)
@@ -32,13 +34,10 @@ const Section = ({ token, isLoggedIn }) => {
             setGithub(res.data.data.github)
             setFacebook(res.data.data.facebook)
             setInstagram(res.data.data.instagram)
-
-            // setData(res.data.data);
-            // console.log(profileOb);
         }
     };
 
-    const editProfile = () => {
+    const editProfile = async () => {
         var obj = {
             name: name,
             phone: phone,
@@ -49,9 +48,32 @@ const Section = ({ token, isLoggedIn }) => {
             github: github,
             instagram: instagram,
             facebook: facebook,
-            highested: highested,
-            currently: currently,
         };
+        let res = await axios.put(`http://localhost:8080/auth/edit/${id}`, obj)
+        if (res.data.success) {
+            toast.success(res.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+        else {
+            toast.error(res.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
     };
     useEffect(() => {
         if (isLoggedIn && token) {
@@ -60,7 +82,9 @@ const Section = ({ token, isLoggedIn }) => {
     }, [isLoggedIn, token], getUserProfile);
     return (
         <>
+
             <section>
+
                 <div className="main-flex">
                     <div className="left-flex">
                         {/* <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" alt="" /> */}
@@ -80,10 +104,10 @@ const Section = ({ token, isLoggedIn }) => {
                 {/* About Section */}
                 <div className="text-about">
                     <h5>ABOUT ME</h5>
-                    <button>Edit</button>
+                    <button onClick={editProfile}>Edit</button>
                 </div>
                 <div className="textarea-about">
-                    <textarea class="textarea-text" value={about} placeholder="Add something about you." rows="4" disabled=""></textarea>
+                    <textarea class="textarea-text" value={about} onChange={(e) => setAbout(e.target.value)} placeholder="Add something about you." rows="4" disabled=""></textarea>
                 </div>
 
                 <div className="text-underline"></div>
@@ -113,7 +137,7 @@ const Section = ({ token, isLoggedIn }) => {
                 {/* Links Section */}
                 <div className="text-about">
                     <h5>On Web</h5>
-                    <button>Change</button>
+                    <button onClick={editProfile}>Change</button>
                 </div>
                 <div className="container-link">
                     <div className="left-links">
@@ -127,6 +151,7 @@ const Section = ({ token, isLoggedIn }) => {
                                     className="title-link-text"
                                     placeholder="LinkedIn"
                                     value={linkedin}
+                                    onChange={(e) => setLinkedin(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -140,6 +165,7 @@ const Section = ({ token, isLoggedIn }) => {
                                     className="title-link-text"
                                     placeholder="Github"
                                     value={github}
+                                    onChange={(e) => setGithub(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -155,6 +181,7 @@ const Section = ({ token, isLoggedIn }) => {
                                     className="title-link-text"
                                     placeholder="Instagram"
                                     value={instagram}
+                                    onChange={(e) => setInstagram(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -168,6 +195,7 @@ const Section = ({ token, isLoggedIn }) => {
                                     className="title-link-text"
                                     placeholder="Facebook"
                                     value={facebook}
+                                    onChange={(e) => setFacebook(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -178,7 +206,7 @@ const Section = ({ token, isLoggedIn }) => {
                 {/* Password */}
                 <div className="text-about">
                     <h5>Professional Information</h5>
-                    <button>Change</button>
+                    <button onClick={editProfile}>Change</button>
                 </div>
                 <div className="container-flex">
                     <div class="title-link">
@@ -206,7 +234,7 @@ const Section = ({ token, isLoggedIn }) => {
                 {/* Password Section */}
                 <div className="text-about">
                     <h5>Password & Security</h5>
-                    <button>Change</button>
+                    <button onClick={editProfile}>Change</button>
                 </div>
                 <div className="title-link">
                     <div className="title-title">Password</div>
@@ -216,6 +244,7 @@ const Section = ({ token, isLoggedIn }) => {
                             className="title-link-text"
                             placeholder="Password"
                             value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                 </div>
@@ -293,7 +322,7 @@ const Section = ({ token, isLoggedIn }) => {
                                     >
                                         Close
                                     </button>
-                                    <button type="button" className="btn btn-primary">
+                                    <button onClick={editProfile} type="button" className="btn btn-primary">
                                         Save changes
                                     </button>
                                 </div>

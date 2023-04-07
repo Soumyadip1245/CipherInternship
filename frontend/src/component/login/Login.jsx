@@ -95,7 +95,7 @@ const Login = ({ onLogin }) => {
     if (showRegisterForm) {
         return (
             <>
-                <ToastContainer
+                {/* <ToastContainer
                     position="top-right"
                     autoClose={5000}
                     hideProgressBar={false}
@@ -106,9 +106,7 @@ const Login = ({ onLogin }) => {
                     draggable
                     pauseOnHover
                     theme="light"
-                />
-                {/* Same as */}
-                <ToastContainer />
+                /> */}
                 <div className="form">
 
                     <div className="logo-container">
@@ -166,7 +164,7 @@ const Login = ({ onLogin }) => {
     else {
         return (
             <>
-                <ToastContainer />
+                {/* <ToastContainer /> */}
                 <div className="form">
                     <div className="logo-container">
                         <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" alt="Your Logo" />

@@ -55,21 +55,27 @@ router.post('/profile/:id', (req, res) => {
     })
 })
 router.put('/edit/:id', (req, res) => {
-    var obj = {
-        name: req.body.name,
-        phone: req.body.phone,
-        password: req.body.password,
-        email: req.body.email,
-        about: req.body.about,
-        linkedin: req.body.linkedin,
-        github: req.body.github,
-        instagram: req.body.instagram,
-        facebook: req.body.facebook,
-        highested: req.body.highested,
-        currently: req.body.currently,
-    }
-    User.findByIdAndUpdate(req.params.id, { $set: obj }).then(() => {
-        res.json({ success: true, message: "Updated Successfull" })
-    }).catch({ success: false, message: "Some Error" })
-})
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        var obj = {
+            name: req.body.name,
+            phone: req.body.phone,
+            password: hash,
+            email: req.body.email,
+            about: req.body.about,
+            linkedin: req.body.linkedin,
+            github: req.body.github,
+            instagram: req.body.instagram,
+            facebook: req.body.facebook,
+            highested: req.body.highested,
+            currently: req.body.currently,
+        }
+
+        User.findByIdAndUpdate(req.params.id, { $set: obj }).then(() => {
+            res.json({ success: true, message: "Updated Successfully" })
+        }).catch((error) => {
+            console.error(error);
+            res.status(500).json({ success: false, message: "Some Error" });
+        });
+    });
+});
 module.exports = router
