@@ -1,8 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Section.css'
+import axios from 'axios';
+import jwt_decode from "jwt-decode";
 import ReactCalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
-const Section = () => {
+const Section = ({ token, isLoggedIn }) => {
+    const [profileOb, setData] = useState({});
+    const [name, setName] = useState(profileOb.name || '');
+    const [phone, setPhone] = useState(profileOb.phone || '');
+    const [password, setPassword] = useState(profileOb.password || '');
+    const [email, setEmail] = useState(profileOb.email || '');
+    const [about, setAbout] = useState(profileOb.about || '');
+    const [linkedin, setLinkedin] = useState(profileOb.linkedin || '');
+    const [github, setGithub] = useState(profileOb.github || '');
+    const [instagram, setInstagram] = useState(profileOb.instagram || '');
+    const [facebook, setFacebook] = useState(profileOb.facebook || '');
+    const [highested, setHighested] = useState(profileOb.highested || '');
+    const [currently, setCurrently] = useState(profileOb.currently || '');
+    const getUserProfile = async () => {
+        console.log('Fetching user profile...');
+        const decode = jwt_decode(token);
+        console.log(decode.userId);
+        let res = await axios.post('http://localhost:8080/auth/profile/' + decode.userId);
+        if (res.data.success) {
+            console.log(res.data.data)
+            setName(res.data.data.name)
+            setPassword(res.data.data.phone)
+            setEmail(res.data.data.email)
+            setAbout(res.data.data.about)
+            setLinkedin(res.data.data.linkedin)
+            setGithub(res.data.data.github)
+            setFacebook(res.data.data.facebook)
+            setInstagram(res.data.data.instagram)
+
+            // setData(res.data.data);
+            // console.log(profileOb);
+        }
+    };
+
+    const editProfile = () => {
+        var obj = {
+            name: name,
+            phone: phone,
+            password: password,
+            email: email,
+            about: about,
+            linkedin: linkedin,
+            github: github,
+            instagram: instagram,
+            facebook: facebook,
+            highested: highested,
+            currently: currently,
+        };
+    };
+    useEffect(() => {
+        if (isLoggedIn && token) {
+            getUserProfile();
+        }
+    }, [isLoggedIn, token], getUserProfile);
     return (
         <>
             <section>
@@ -12,8 +67,8 @@ const Section = () => {
                         <img src="https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o=" alt="" />
                         <div className="text-field">
                             <h5>Hello, </h5>
-                            <h4>Soumyadip Das </h4>
-                            <h6>soumyadip20csu214@gmail.com</h6>
+                            <h4>{name} </h4>
+                            <h6>{email}</h6>
                         </div>
                     </div>
                     <div className="right-flex">
@@ -28,7 +83,7 @@ const Section = () => {
                     <button>Edit</button>
                 </div>
                 <div className="textarea-about">
-                    <textarea class="textarea-text" placeholder="Add something about you." rows="4" disabled=""></textarea>
+                    <textarea class="textarea-text" value={about} placeholder="Add something about you." rows="4" disabled=""></textarea>
                 </div>
 
                 <div className="text-underline"></div>
@@ -71,6 +126,7 @@ const Section = () => {
                                 <input
                                     className="title-link-text"
                                     placeholder="LinkedIn"
+                                    value={linkedin}
                                 />
                             </div>
                         </div>
@@ -83,6 +139,7 @@ const Section = () => {
                                 <input
                                     className="title-link-text"
                                     placeholder="Github"
+                                    value={github}
                                 />
                             </div>
                         </div>
@@ -97,6 +154,7 @@ const Section = () => {
                                 <input
                                     className="title-link-text"
                                     placeholder="Instagram"
+                                    value={instagram}
                                 />
                             </div>
                         </div>
@@ -109,6 +167,7 @@ const Section = () => {
                                 <input
                                     className="title-link-text"
                                     placeholder="Facebook"
+                                    value={facebook}
                                 />
                             </div>
                         </div>
@@ -156,6 +215,7 @@ const Section = () => {
                             type="password"
                             className="title-link-text"
                             placeholder="Password"
+                            value={password}
                         />
                     </div>
                 </div>
