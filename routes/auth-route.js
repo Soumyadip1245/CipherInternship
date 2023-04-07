@@ -68,6 +68,7 @@ router.put('/edit/:id', (req, res) => {
         facebook: req.body.facebook,
         highested: req.body.highested,
         currently: req.body.currently,
+        interest: req.body.interest
     }
     User.findByIdAndUpdate(req.params.id, { $set: obj }).then(() => {
         res.json({ success: true, message: "Updated Successfully" })

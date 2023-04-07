@@ -18,6 +18,8 @@ const Section = ({ token, isLoggedIn }) => {
     const [facebook, setFacebook] = useState('');
     const [highested, setHighested] = useState('');
     const [currently, setCurrently] = useState('');
+    const [interest, setInterest] = useState([]);
+
     const getUserProfile = async () => {
         console.log('Fetching user profile...');
         const decode = jwt_decode(token);
@@ -48,7 +50,8 @@ const Section = ({ token, isLoggedIn }) => {
             instagram: instagram,
             facebook: facebook,
             currently: currently,
-            highested: highested
+            highested: highested,
+            interest: interest
         };
         let res = await axios.put(`http://localhost:8080/auth/edit/${id}`, obj)
         if (res.data.success) {
@@ -285,12 +288,18 @@ const Section = ({ token, isLoggedIn }) => {
                                 <div className="modal-body">
                                     <div className="modal-container">
                                         <div className="left-modal">
-
                                             <input
                                                 type="checkbox"
                                                 className="btn-check"
                                                 id="btn-check"
                                                 autoComplete="off"
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setInterest([...interest, "Web Development"]);
+                                                    } else {
+                                                        setInterest(interest.filter((item) => item !== "Web Development"));
+                                                    }
+                                                }}
                                             />
                                             <label className="btn btn-primary" htmlFor="btn-check">
                                                 Web Development
@@ -298,39 +307,58 @@ const Section = ({ token, isLoggedIn }) => {
                                             <input
                                                 type="checkbox"
                                                 className="btn-check"
-                                                id="btn-check2"
+                                                id="btn-check3"
                                                 defaultChecked=""
                                                 autoComplete="off"
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setInterest([...interest, "App Development"]);
+                                                    } else {
+                                                        setInterest(interest.filter((item) => item !== "App Development"));
+                                                    }
+                                                }}
                                             />
-                                            <label className="btn btn-primary" htmlFor="btn-check2">
+                                            <label className="btn btn-primary" htmlFor="btn-check3">
                                                 App Development
                                             </label>
-
-
-
                                         </div>
                                         <div className="right-modal">
                                             <input
                                                 type="checkbox"
                                                 className="btn-check"
-                                                id="btn-check"
+                                                id="btn-check2"
                                                 autoComplete="off"
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setInterest([...interest, "Game Development"]);
+                                                    } else {
+                                                        setInterest(interest.filter((item) => item !== "Game Development"));
+                                                    }
+                                                }}
                                             />
-                                            <label className="btn btn-primary" htmlFor="btn-check">
+                                            <label className="btn btn-primary" htmlFor="btn-check2">
                                                 Game Development
                                             </label>
                                             <input
                                                 type="checkbox"
                                                 className="btn-check"
-                                                id="btn-check2"
+                                                id="btn-check4"
                                                 defaultChecked=""
                                                 autoComplete="off"
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setInterest([...interest, "UI/UX Development"]);
+                                                    } else {
+                                                        setInterest(interest.filter((item) => item !== "UI/UX Development"));
+                                                    }
+                                                }}
                                             />
-                                            <label className="btn btn-primary" htmlFor="btn-check2">
+                                            <label className="btn btn-primary" htmlFor="btn-check4">
                                                 Ui/UX Development
                                             </label>
                                         </div>
                                     </div>
+
 
 
                                 </div>
@@ -342,7 +370,7 @@ const Section = ({ token, isLoggedIn }) => {
                                     >
                                         Close
                                     </button>
-                                    <button onClick={editProfile} type="button" className="btn btn-primary">
+                                    <button data-mdb-dismiss="modal" onClick={editProfile} type="button" className="btn btn-primary">
                                         Save changes
                                     </button>
                                 </div>

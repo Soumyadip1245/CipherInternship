@@ -185,6 +185,49 @@ main {
     align-items: center;
 }
 
+.btn {
+    border: 1px solid black;
+}
+
+.btn:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+    box-shadow: none;
+    border: 1px solid black;
+    background-color: transparent;
+}
+
+/* target the unchecked checkbox */
+.btn-check:not(:checked)+.btn-primary {
+    color: #000;
+    /* set the color to black */
+    background-color: #fff;
+    /* set the background color to white */
+    border-color: #000;
+    box-shadow: none;
+    /* set the border color to black */
+}
+
+/* target the checked checkbox */
+.btn-check:checked+.btn-primary {
+    color: #fff;
+    /* set the color to white */
+    background-color: #f3912e;
+    /* set the background color to blue */
+    border-color: none;
+    box-shadow: none;
+    /* set the border color to blue */
+}
+
+.btn:hover,
+.btn:hover {
+    background-color: #f3912e;
+    border-color: none;
+    box-shadow: none;
+    color: white;
+}
+
+
 .modal-container label {
     margin-top: 2rem;
 }
