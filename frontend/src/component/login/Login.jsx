@@ -173,7 +173,7 @@ const Login = ({ onLogin }) => {
                         <h2>CipherSchools</h2>
                     </div>
                     <div className="alert alert-warning" role='alert'>
-                        <b> For Login: <b>Email: "test@gmail.com", Password: "test" or create a new one by register</b></b>
+                        <b> For Login: Email: "test@gmail.com" , Password: "test" or create a new one by register</b>
 
                     </div>
                     <div className="input-row">

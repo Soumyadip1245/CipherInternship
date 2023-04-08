@@ -1,0 +1,9 @@
+@media (max-width: 700px) {
+    .div {
+        font-size: 15px;
+    }
+
+    .alert.alert-warning {
+        font-size: 20px;
+    }
+}

@@ -6,7 +6,7 @@ const Follower = () => {
     return (
         <>
             <div className="follower-container">
-                <h2>Users You Follow</h2>
+                <h2>User Follows</h2>
                 <div>
                     <h1>You are not following anyone</h1>
                 </div>

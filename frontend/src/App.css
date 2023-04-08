@@ -14,4 +14,16 @@
     left: 0%;
     right: 0%
   }
+
+  .Toastify__toast-body {
+    font-size: 25px;
+  }
+
+  label {
+    font-size: 15px;
+  }
+
+  .modal-container {
+    grid-template-columns: 1fr;
+  }
 }
