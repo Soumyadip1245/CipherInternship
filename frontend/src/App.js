@@ -29,7 +29,9 @@ const App = () => {
         pauseOnHover
         theme="light"
       />
+
       <Header />
+
       <div className="App">
         {!isLoggedIn && (
           <div className='form-container'>
