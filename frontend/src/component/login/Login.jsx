@@ -18,7 +18,7 @@ const Login = ({ onLogin }) => {
             "password": rpassword
 
         }
-        let res = await axios.post("http://localhost:8080/auth/register", obj)
+        let res = await axios.post("https://cipher-internship.vercel.app/auth/register", obj)
         if (res.data.success) {
             setRPhone("")
             setRemail("")
@@ -57,7 +57,7 @@ const Login = ({ onLogin }) => {
             "email": remail,
             "password": rpassword
         }
-        let res = await axios.post('http://localhost:8080/auth/login', obj)
+        let res = await axios.post('https://cipher-internship.vercel.app/auth/login', obj)
         if (res.data.success) {
             setRemail("")
             setRpassword("")

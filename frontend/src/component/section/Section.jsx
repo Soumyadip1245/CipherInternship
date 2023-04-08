@@ -28,7 +28,7 @@ const Section = ({ token, isLoggedIn }) => {
     const getUserProfile = async () => {
         const decode = jwt_decode(token);
         setId(decode.userId)
-        let res = await axios.post('http://localhost:8080/auth/profile/' + decode.userId);
+        let res = await axios.post('https://cipher-internship.vercel.app/auth/profile/' + decode.userId);
         if (res.data.success) {
             setName(res.data.data.name)
             setPassword(res.data.data.password)
@@ -56,7 +56,7 @@ const Section = ({ token, isLoggedIn }) => {
             currently: currently,
             highested: highested,
         };
-        let res = await axios.put(`http://localhost:8080/auth/edit/${id}`, obj)
+        let res = await axios.put(`https://cipher-internship.vercel.app/auth/edit/${id}`, obj)
         if (res.data.success) {
             toast.success(res.data.message, {
                 position: "top-right",
@@ -88,7 +88,7 @@ const Section = ({ token, isLoggedIn }) => {
                 interest: checkedInterests,
             };
             const res = await axios.put(
-                `http://localhost:8080/auth/interest/${id}`,
+                `https://cipher-internship.vercel.app/auth/interest/${id}`,
                 ob
             );
         };
@@ -99,7 +99,7 @@ const Section = ({ token, isLoggedIn }) => {
         var ob = {
             "password": password
         }
-        let res = await axios.put(`http://localhost:8080/auth/pedit/${id}`, ob)
+        let res = await axios.put(`https://cipher-internship.vercel.app/auth/pedit/${id}`, ob)
         if (res.data.success) {
             toast.success(res.data.message, {
                 position: "top-right",
@@ -143,11 +143,12 @@ const Section = ({ token, isLoggedIn }) => {
         }
 
     };
+
     const interestedit = async () => {
         var ob = {
             "interest": checkedInterests
         }
-        let res = await axios.put(`http://localhost:8080/auth/interest/${id}`, ob)
+        let res = await axios.put(`https://cipher-internship.vercel.app/auth/interest/${id}`, ob)
     }
     useEffect(() => {
         if (isLoggedIn && token) {
