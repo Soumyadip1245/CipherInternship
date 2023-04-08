@@ -3,6 +3,7 @@ import './Header.css'
 export const Header = () => {
     const logout = () => {
         localStorage.clear()
+        window.location.reload()
     }
     return (
         <>

@@ -7,6 +7,7 @@ import 'react-calendar-heatmap/dist/styles.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Section = ({ token, isLoggedIn }) => {
+
     const [name, setName] = useState('');
     const [id, setId] = useState("");
     const [password, setPassword] = useState('');
@@ -18,15 +19,15 @@ const Section = ({ token, isLoggedIn }) => {
     const [facebook, setFacebook] = useState('');
     const [highested, setHighested] = useState('');
     const [currently, setCurrently] = useState('');
-    const [interest, setInterest] = useState([]);
+    const [interest, setInterest] = useState(["Web Development", "App Development", "Devops", "UI/UX Development"]);
+    const [checkedInterests, setCheckedInterests] = useState([]);
+
 
     const getUserProfile = async () => {
-        console.log('Fetching user profile...');
         const decode = jwt_decode(token);
         setId(decode.userId)
         let res = await axios.post('http://localhost:8080/auth/profile/' + decode.userId);
         if (res.data.success) {
-            console.log(res.data.data)
             setName(res.data.data.name)
             setPassword(res.data.data.password)
             setEmail(res.data.data.email)
@@ -37,6 +38,7 @@ const Section = ({ token, isLoggedIn }) => {
             setInstagram(res.data.data.instagram)
             setHighested(res.data.data.highested)
             setCurrently(res.data.data.currently)
+            setCheckedInterests(res.data.data.interest)
         }
     };
 
@@ -51,7 +53,6 @@ const Section = ({ token, isLoggedIn }) => {
             facebook: facebook,
             currently: currently,
             highested: highested,
-            interest: interest
         };
         let res = await axios.put(`http://localhost:8080/auth/edit/${id}`, obj)
         if (res.data.success) {
@@ -79,6 +80,19 @@ const Section = ({ token, isLoggedIn }) => {
             });
         }
     };
+    useEffect(() => {
+        const interestedit = async () => {
+            const ob = {
+                interest: checkedInterests,
+            };
+            const res = await axios.put(
+                `http://localhost:8080/auth/interest/${id}`,
+                ob
+            );
+        };
+        interestedit();
+    }, [checkedInterests, id]);
+
     const passwordProfile = async () => {
         var ob = {
             "password": password
@@ -97,6 +111,41 @@ const Section = ({ token, isLoggedIn }) => {
             });
         }
 
+    }
+    const handleCheckboxChange = async (event) => {
+        const value = event.target.value;
+        if (event.target.checked) {
+            setCheckedInterests([...checkedInterests, value]);
+            toast.success("Updated Successful", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        } else {
+            setCheckedInterests(checkedInterests.filter((item) => item !== value));
+            toast.success("Updated Successful", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+
+    };
+    const interestedit = async () => {
+        var ob = {
+            "interest": checkedInterests
+        }
+        let res = await axios.put(`http://localhost:8080/auth/interest/${id}`, ob)
     }
     useEffect(() => {
         if (isLoggedIn && token) {
@@ -287,76 +336,18 @@ const Section = ({ token, isLoggedIn }) => {
                             <div className="modal-content">
                                 <div className="modal-body">
                                     <div className="modal-container">
-                                        <div className="left-modal">
-                                            <input
-                                                type="checkbox"
-                                                className="btn-check"
-                                                id="btn-check"
-                                                autoComplete="off"
-                                                onChange={(e) => {
-                                                    if (e.target.checked) {
-                                                        setInterest([...interest, "Web Development"]);
-                                                    } else {
-                                                        setInterest(interest.filter((item) => item !== "Web Development"));
-                                                    }
-                                                }}
-                                            />
-                                            <label className="btn btn-primary" htmlFor="btn-check">
-                                                Web Development
+                                        {interest.slice(0, 4).map((interestItem) => (
+                                            <label key={interestItem}>
+                                                <input
+                                                    type="checkbox"
+                                                    value={interestItem}
+                                                    onChange={handleCheckboxChange}
+                                                    checked={checkedInterests.includes(interestItem)}
+                                                />
+                                                {interestItem}
                                             </label>
-                                            <input
-                                                type="checkbox"
-                                                className="btn-check"
-                                                id="btn-check3"
-                                                defaultChecked=""
-                                                autoComplete="off"
-                                                onChange={(e) => {
-                                                    if (e.target.checked) {
-                                                        setInterest([...interest, "App Development"]);
-                                                    } else {
-                                                        setInterest(interest.filter((item) => item !== "App Development"));
-                                                    }
-                                                }}
-                                            />
-                                            <label className="btn btn-primary" htmlFor="btn-check3">
-                                                App Development
-                                            </label>
-                                        </div>
-                                        <div className="right-modal">
-                                            <input
-                                                type="checkbox"
-                                                className="btn-check"
-                                                id="btn-check2"
-                                                autoComplete="off"
-                                                onChange={(e) => {
-                                                    if (e.target.checked) {
-                                                        setInterest([...interest, "Game Development"]);
-                                                    } else {
-                                                        setInterest(interest.filter((item) => item !== "Game Development"));
-                                                    }
-                                                }}
-                                            />
-                                            <label className="btn btn-primary" htmlFor="btn-check2">
-                                                Game Development
-                                            </label>
-                                            <input
-                                                type="checkbox"
-                                                className="btn-check"
-                                                id="btn-check4"
-                                                defaultChecked=""
-                                                autoComplete="off"
-                                                onChange={(e) => {
-                                                    if (e.target.checked) {
-                                                        setInterest([...interest, "UI/UX Development"]);
-                                                    } else {
-                                                        setInterest(interest.filter((item) => item !== "UI/UX Development"));
-                                                    }
-                                                }}
-                                            />
-                                            <label className="btn btn-primary" htmlFor="btn-check4">
-                                                Ui/UX Development
-                                            </label>
-                                        </div>
+                                        ))}
+
                                     </div>
 
 
@@ -369,9 +360,6 @@ const Section = ({ token, isLoggedIn }) => {
                                         data-mdb-dismiss="modal"
                                     >
                                         Close
-                                    </button>
-                                    <button data-mdb-dismiss="modal" onClick={editProfile} type="button" className="btn btn-primary">
-                                        Save changes
                                     </button>
                                 </div>
                             </div>

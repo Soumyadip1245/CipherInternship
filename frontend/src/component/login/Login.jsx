@@ -113,6 +113,8 @@ const Login = ({ onLogin }) => {
                         <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" alt="Your Logo" />
                         <h2>CipherSchools</h2>
                     </div>
+
+
                     <div className="input-row">
                         <input
                             type="text"
@@ -170,6 +172,11 @@ const Login = ({ onLogin }) => {
                         <img src="https://www.cipherschools.com/static/media/Cipherschools_icon@2x.3b571d743ffedc84d039.png" alt="Your Logo" />
                         <h2>CipherSchools</h2>
                     </div>
+                    <div className="alert alert-danger" role='alert'>
+                        <b> For Login: <b>"Email: test@gmail.com , Password: test"</b><br />
+                            <b>or</b><br />
+                            <b>create a new one by register</b></b>
+                    </div>
                     <div className="input-row">
                         <input
                             type="email"
@@ -194,7 +201,7 @@ const Login = ({ onLogin }) => {
                         <a onClick={register}>  <span>Get Started</span></a>
                     </div>
 
-                </div>
+                </div >
             </>
 
 

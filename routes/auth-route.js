@@ -87,5 +87,15 @@ router.put('/pedit/:id', (req, res) => {
         })
     })
 })
+router.put('/interest/:id', (req, res) => {
+    var obj = {
+        interest: req.body.interest
+    }
+    User.findByIdAndUpdate(req.params.id, { $set: obj }).then(() => {
+        res.json({ success: true, message: "Updated Successfully" })
+    }).catch((error) => {
+        res.json({ success: false, message: "Some Error" });
+    });
 
+});
 module.exports = router
