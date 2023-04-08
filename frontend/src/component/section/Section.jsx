@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import ReactCalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 const Section = ({ token, isLoggedIn }) => {
 
@@ -168,7 +169,8 @@ const Section = ({ token, isLoggedIn }) => {
                         </div>
                     </div>
                     <div className="right-flex">
-                        <a href='#'><h5>0 Followers</h5></a>
+                        <Link to="/follower"><h5>0 Followers</h5></Link>
+
                     </div>
                 </div>
             </section>

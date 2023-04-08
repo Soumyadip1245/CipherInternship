@@ -2,13 +2,17 @@ import React, { useState } from 'react'
 import { Header } from './component/header/Header'
 import Section from './component/section/Section'
 import Login from './component/login/Login'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
+import Follower from './component/follower/Follower';
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState('');
+
   const handleLogin = () => {
     const token = localStorage.getItem('token');
     setToken(token);
@@ -39,9 +43,14 @@ const App = () => {
           </div>
         )}
         <div style={{ filter: isLoggedIn ? "none" : "blur(5px)" }}>
-          <Section isLoggedIn={isLoggedIn} token={token} />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Section isLoggedIn={isLoggedIn} token={token} />} />
+              <Route path="/follower" element={<Follower />} />
+            </Routes>
+          </BrowserRouter>
         </div>
-      </div >
+      </div>
     </>
   )
 }
