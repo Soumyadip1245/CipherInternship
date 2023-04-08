@@ -337,6 +337,20 @@ const Section = ({ token, isLoggedIn }) => {
                                 <div className="modal-body">
                                     <div className="modal-container">
                                         {interest.slice(0, 4).map((interestItem) => (
+                                            <label key={interestItem} for={`interest-${interestItem}`} class="button-checkbox">
+                                                <input
+                                                    type="checkbox"
+                                                    value={interestItem}
+                                                    onChange={handleCheckboxChange}
+                                                    checked={checkedInterests.includes(interestItem)}
+                                                    id={`interest-${interestItem}`}
+                                                />
+                                                {interestItem}
+                                            </label>
+                                        ))}
+                                    </div><div className="modal-container">
+                                        {interest.slice(0, 4).map((interestItem) => (
+
                                             <label key={interestItem}>
                                                 <input
                                                     type="checkbox"
@@ -344,6 +358,7 @@ const Section = ({ token, isLoggedIn }) => {
                                                     onChange={handleCheckboxChange}
                                                     checked={checkedInterests.includes(interestItem)}
                                                 />
+
                                                 {interestItem}
                                             </label>
                                         ))}
