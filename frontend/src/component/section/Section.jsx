@@ -7,6 +7,7 @@ import 'react-calendar-heatmap/dist/styles.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../footer/Footer';
 const Section = ({ token, isLoggedIn }) => {
 
     const [name, setName] = useState('');
@@ -385,6 +386,7 @@ const Section = ({ token, isLoggedIn }) => {
 
                 </div>
             </main >
+            <Footer />
         </>
     )
 }

@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css'
 import Follower from './component/follower/Follower';
+import Footer from './component/footer/Footer';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,6 +52,7 @@ const App = () => {
           </BrowserRouter>
         </div>
       </div>
+
     </>
   )
 }
